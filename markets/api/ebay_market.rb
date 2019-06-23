@@ -1,4 +1,4 @@
-require_relative '../markets/base_market'
+require_relative '../base_market'
 
 
 class EbayMarket < BaseMarket

@@ -1,5 +1,5 @@
-require_relative 'markets/amazon_market'
-require_relative 'markets/ebay_market'
+require_relative 'markets/api/amazon_market'
+require_relative 'markets/api/ebay_market'
 
 class SalesNotifier
 
