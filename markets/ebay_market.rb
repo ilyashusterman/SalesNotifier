@@ -1,5 +1,3 @@
-require 'json'
-require 'concurrent'
 require_relative '../markets/base_market'
 
 
@@ -17,29 +15,12 @@ class EbayMarket < BaseMarket
   end
 
   def get_product_url(product)
-    format(@base_url, product[:item_id])
+    format(@base_url, product.item_id)
   end
 
   def get_parsed_response(response)
-    JSON.parse(response)
+    get_parsed_response_string(response)
   end
 
-  def map_product_descriptions(products)
-    pool = Concurrent::ThreadPoolExecutor.new(
-      min_threads: 3,
-      max_threads: 10,
-      max_queue: 100
-    )
-    descriptions = []
-    products.each do |product|
-      pool.post do
-        description = get_product_description product
-        descriptions.append description
-      end
-    end
-    pool.shutdown
-    pool.wait_for_termination
-    descriptions
-  end
 end
 
