@@ -1,10 +1,9 @@
 # **Sales Notifier**
-
----
-1. fetch listed products
-2. each market has its own products
-2. compare products initial price to the current price
-3. notify if their price reduced
-4. notify for good reviews
+--
+###### **open source project for any market items for sale: products shipping, flying tickets**
+1. Fetching listed products
+2. Each new Product relates to one Market
+2. Compare products (initial price to the current price, reviews, etc..)
+3. Notify for successful compare
 ---
 ![alt text](https://github.com/ilyashusterman/SalesNotifier/blob/master/images/SalesNotifier.png "Sales Notifier UML")
