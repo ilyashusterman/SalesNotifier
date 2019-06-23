@@ -12,6 +12,7 @@ class EbayMarket < BaseMarket
     product_url = get_product_url(product)
     response = http_get(product_url)
     get_parsed_response response
+    #TODO build product description
   end
 
   def get_product_url(product)

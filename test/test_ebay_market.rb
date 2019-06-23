@@ -17,6 +17,13 @@ class TestSalesNotifier < Test::Unit::TestCase
     assert_equal(1, product_description.length)
   end
 
+  def test_get_product_description_that_does_not_exist
+    product = Product.new(item_id=111111111111)
+    product_description = @ebay.get_product_description product
+    puts product_description["ViewItemLiteResponse"]
+    assert_equal(nil, product_description["ViewItemLiteResponse"]["Error"].length)
+  end
+
   def test_get_product_url
     product = Product.new(item_id=392315084973)
     assert_equal('https://www.ebay.com/lit/v1/item?pbv=1&item=392315084973', @ebay.get_product_url(product))
