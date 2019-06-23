@@ -1,3 +1,9 @@
 # frozen_string_literal: true
 
-Product = Struct.new(:item_id)
+BaseProduct = Struct.new(:item_id, :market)
+
+class Product < BaseProduct
+  def initialize(item_id, market = 'no_market_initialized')
+    super
+  end
+end

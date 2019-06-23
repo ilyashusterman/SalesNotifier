@@ -5,6 +5,7 @@ require 'json'
 require_relative '../markets/base_concurrent'
 
 class BaseMarket
+  attr_accessor :name
   def initialize(name)
     @name = name
     puts "#{@name} Market initialized"

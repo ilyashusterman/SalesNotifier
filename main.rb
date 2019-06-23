@@ -1,13 +1,8 @@
-require 'net/http'
-require 'uri'
-require 'cgi'
+require_relative 'sales_notifier'
+require_relative 'markets/models/product'
 
-def http_get(domain)
-  Net::HTTP.get URI(domain)
+if $PROGRAM_NAME == __FILE__
+  products = [Product.new(item_id = 392315084973, market = 'Ebay')]
+  sales = SalesNotifier.new(products)
+  puts sales.get_sales
 end
-
-
-params = {:q => "ruby", :max => 50}
-# puts http_get("www.google.com", "/", params)
-puts http_get('http://www.ebay.com/lit/v1/item?pbv=1&item=392315084973&si=I3CW%2Fqiszl2XWlmQGBj6U%2BM49Y0%3D&lastaccessed=1561243320000&lvr=0&dl=4&cb=jQuery1708731352142529449_1561243321737&_=1561243321814',
-              )
