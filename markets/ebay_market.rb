@@ -22,7 +22,6 @@ class EbayMarket < BaseMarket
 
   def get_parsed_response(response)
     JSON.parse(response)
-    # response.split(query_name)[1][3..-3]
   end
 
   def map_product_descriptions(products)
