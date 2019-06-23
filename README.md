@@ -7,4 +7,4 @@
 3. notify if their price reduced
 4. notify for good reviews
 ---
-![alt text](https://github.com/ilyashusterman/SalesNotifier/images/SalesNotifier.png "Sales Notifier UML")
+![alt text](https://github.com/ilyashusterman/SalesNotifier/blob/master/images/SalesNotifier.png "Sales Notifier UML")
