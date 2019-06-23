@@ -14,18 +14,25 @@ class SalesNotifier
     [EbayMarket.new, AmazonMarket.new]
   end
 
-  def get_sales
-    sales = []
+  # @return List[Hash] for product descriptions
+  def get_products_sales
+    get_products_descriptions
+    # TODO: implement logic for
+    # 3. notify if their price reduced
+    # 4. notify for good reviews
+  end
+
+  def get_products_descriptions
+    products_descriptions = []
     @market_providers.each do |market|
       market_products = get_market_products(market)
-      sales.append market.map_product_descriptions(market_products)
+      products_descriptions.append market.map_product_descriptions(market_products)
     end
-    sales
+    products_descriptions
   end
 
   def get_market_products(market)
-    @products.select {|product| product.market == market.name}
+    @products.select {|product| product.market_name == market.name}
   end
-
 
 end
