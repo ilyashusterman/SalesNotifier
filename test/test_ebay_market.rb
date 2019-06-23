@@ -5,7 +5,7 @@ require_relative "../markets/api/ebay_market"
 require_relative "../markets/models/product"
 require "test/unit"
 
-class TestSalesNotifier < Test::Unit::TestCase
+class TestEbayMarket < Test::Unit::TestCase
 
   def setup
     @ebay = EbayMarket.new
