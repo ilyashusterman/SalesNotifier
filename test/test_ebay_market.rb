@@ -10,13 +10,23 @@ class TestSalesNotifier < Test::Unit::TestCase
     @ebay = EbayMarket.new
   end
 
-  def test_setup_markets
+  def test_get_product_description
     product = {
-        'item_id':392315084973,
-        'query_name': 'jQuery1708731352142529449_1561243321737'
+        'item_id':392315084973
     }
-    details = @ebay.get_product_details product
-    assert_equal(1, details.length)
+    product_description = @ebay.get_product_description product
+    assert_equal(1, product_description.length)
+  end
+
+  def test_get_products_description
+    products = [{
+        'item_id':392315084973
+    },{
+        'item_id': 264364448103
+                }
+    ]
+    products_descriptions = @ebay.map_product_descriptions products
+    assert_equal(2, products_descriptions.length)
   end
 
 end
