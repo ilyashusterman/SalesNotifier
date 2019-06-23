@@ -1,5 +1,4 @@
 # **Sales Notifier**
---
 ###### **open source project for any market items for sale: products shipping, flying tickets**
 1. Fetching listed products
 2. Each new Product relates to one Market
