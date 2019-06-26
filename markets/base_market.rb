@@ -19,14 +19,31 @@ class BaseMarket
     raise NotImplementedError
   end
 
-  def http_get(domain)
-    Net::HTTP.get URI(domain)
+  def http_get(domain, headers=nil)
+    Net::HTTP.get URI(domain) if headers != {}
+    if headers == nil
+      Net::HTTP.get URI(domain)
+    else
+      get_https_with_headers(domain, headers)
+    end
+  end
+
+  def get_https_with_headers(domain, headers)
+    uri = URI(domain)
+    request = Net::HTTP::Get.new(uri)
+    headers.each do |key, value|
+      request[key] = value
+    end
+    use_ssl = domain.include? "https"
+    Net::HTTP.start(uri.host, uri.port, :use_ssl => use_ssl) {|http|
+      response = http.request request
+      response.body
+    }
   end
 
   def get_parsed_response_string(response)
     JSON.parse(response)
   end
-
 
 end
 
