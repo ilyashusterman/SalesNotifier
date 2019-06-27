@@ -2,23 +2,24 @@ require 'nokogiri'
 
 require_relative '../base_market'
 
+AMAZON_ITEM_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36",
+  "Origin": "https://www.amazon.com",
+  "DNT": 1
+}
 
 class AmazonMarket < BaseMarket
   XPATH_AVAILABILITY = '//div[@id ="availability"]//text()'
-  XPATH_PRICE = '//*[@id="a-autoid-7-announce"]//text()'
+  XPATH_PRICE = '//*[@id="priceblock_ourprice"]//text()'
+  PAGE_NOT_FOUND = 'title'
   def initialize
     super 'Amazon'
     @base_url = 'https://www.amazon.com/dp/%s'
-    @headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36",
-    "Origin": "https://www.amazon.com",
-    "DNT": 1
-    }
   end
 
     def get_product_description(product)
     product_url = get_product_url(product)
-    # @headers['Referer'] = product_url
-    response_body = http_get(product_url, @headers)
+    response_body = http_get(product_url, AMAZON_ITEM_HEADERS)
     get_parsed_response response_body
   end
 
@@ -28,15 +29,18 @@ class AmazonMarket < BaseMarket
 
   def get_parsed_response(response)
     html = Nokogiri::HTML(response)
+    build_description(html)
+  end
+
+  def build_description(html)
     description = {}
+    html.search(PAGE_NOT_FOUND).each do |link|
+        description['error'] = link.content.lstrip if link.content.include? 'Page Not Found'
+    end
     html.xpath(XPATH_AVAILABILITY).each {|link|
-      # availability = link.content.gsub(' ','').gsub('\n','')
-      availability = link.content.lstrip
-      puts availability
-      description['availability'] = availability
+      description['availability'] = link.content.gsub(' ','').gsub('.\n\n\n','').lstrip if link.content.include? 'Stock'
     }
     html.xpath(XPATH_PRICE).each {|link|
-      puts link.content
       description['price'] = link.content.lstrip
     }
     description
