@@ -2,16 +2,17 @@ require 'nokogiri'
 
 require_relative '../base_market'
 
-AMAZON_ITEM_HEADERS = {
-  "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36",
-  "Origin": "https://www.amazon.com",
-  "DNT": 1
-}
 
 class AmazonMarket < BaseMarket
   XPATH_AVAILABILITY = '//div[@id ="availability"]//text()'
   XPATH_PRICE = '//*[@id="priceblock_ourprice"]//text()'
   PAGE_NOT_FOUND = 'title'
+  AMAZON_ITEM_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36",
+    "Origin": "https://www.amazon.com",
+    "DNT": 1
+  }
+
   def initialize
     super 'Amazon'
     @base_url = 'https://www.amazon.com/dp/%s'
