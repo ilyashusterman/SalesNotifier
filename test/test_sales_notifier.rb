@@ -1,5 +1,3 @@
-# File:  tc_simple_number.rb
-
 require_relative "../sales_notifier"
 require "test/unit"
 

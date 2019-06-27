@@ -1,7 +1,3 @@
-
-
-# File:  tc_simple_number.rb
-
 require_relative "../markets/api/amazon_market"
 require_relative "../markets/models/product"
 require "test/unit"
