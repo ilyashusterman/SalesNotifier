@@ -15,7 +15,7 @@ class BaseMarket
     BaseConcurrent.map(products, method(:get_product_description))
   end
 
-  def get_product_description(product_name)
+  def get_product_description(product)
     raise NotImplementedError
   end
 

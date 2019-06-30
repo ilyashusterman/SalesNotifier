@@ -2,7 +2,7 @@ require_relative "../markets/api/amazon_market"
 require_relative "../markets/models/product"
 require "test/unit"
 
-class TestEbayMarket < Test::Unit::TestCase
+class TestAmazonMarket < Test::Unit::TestCase
 
   def setup
     @amazon_market = AmazonMarket.new
@@ -12,11 +12,13 @@ class TestEbayMarket < Test::Unit::TestCase
   def test_get_product_description
     product_description = @amazon_market.get_product_description @product
     assert_equal(2, product_description.length)
+    assert_equal("$99.99", product_description['price'])
   end
 
   def test_get_product_description_that_does_not_exist
     product = Product.new(item_id=111111111111)
     product_description = @amazon_market.get_product_description product
+    assert_include(product_description, 'error')
     assert_equal(1, product_description.length)
   end
 

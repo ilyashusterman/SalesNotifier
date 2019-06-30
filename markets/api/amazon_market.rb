@@ -7,10 +7,8 @@ class AmazonMarket < BaseMarket
   XPATH_AVAILABILITY = '//div[@id ="availability"]//text()'
   XPATH_PRICE = '//*[@id="priceblock_ourprice"]//text()'
   PAGE_NOT_FOUND = 'title'
-  AMAZON_ITEM_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36",
-    "Origin": "https://www.amazon.com",
-    "DNT": 1
+  HEADERS = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36"
   }
 
   def initialize
@@ -20,7 +18,7 @@ class AmazonMarket < BaseMarket
 
     def get_product_description(product)
     product_url = get_product_url(product)
-    response_body = http_get(product_url, AMAZON_ITEM_HEADERS)
+    response_body = http_get(product_url, HEADERS)
     get_parsed_response response_body
   end
 
